@@ -3,26 +3,60 @@
 This project builds and evaluates two state-of-the-art Gradient Boosted Decision Tree (GBDT) frameworks—**LightGBM** and **XGBoost**—to predict passenger survival on the Titanic. The implementation includes comprehensive data visualization, preprocessing, a complete executable script, and a comparative performance analysis.
 
 ## Table of Contents
-* [Overview](#overview)
-* [Dependencies](#dependencies)
-* [Dataset Summary](#dataset-summary)
-* [Data Preprocessing Pipeline](#data-preprocessing-pipeline)
-* [Complete Implementation Code](#complete-implementation-code)
-* [Performance Comparison](#performance-comparison)
-* [Key Takeaways](#key-takeaways)
+- [Overview](#overview)
+- [Dependencies](#dependencies)
+- [Dataset Summary](#dataset-summary)
+- [Data Preprocessing Pipeline](#data-preprocessing-pipeline)
+- [Complete Implementation Code](#complete-implementation-code)
+- [Performance Comparison](#performance-comparison)
+- [Key Takeaways](#key-takeaways)
 
 ---
 
 ## Overview
 The goal of this assignment is to compare the classification capabilities of LightGBM (`LGBMClassifier`) and XGBoost (`XGBClassifier`) using the classic Titanic dataset. The workflow tracks data ingestion, exploratory data analysis (EDA), structural handling of missing data, categorical feature encoding, and multi-metric model evaluations.
 
+---
+
 ## Dependencies
 The code is built using Python 3 and leverages standard data science and machine learning libraries:
+
 ```bash
 pip install pandas numpy matplotlib seaborn scikit-learn lightgbm xgboost
 
-## Dataset Summary
-The project processes both the training (Titanic_train.csv) and testing (Titanic_test.csv) sets combined for structured preprocessing:Total Combined Rows: 1,309Total Initial Features: 12Target Variable: Survived (Binary: 0 = No, 1 = Yes)Missing Value InspectionPrior to preprocessing, missing values were identified across the combined dataset:Age: 263 missing valuesFare: 1 missing valueCabin: 1,014 missing values (Dropped due to sparsity)Embarked: 2 missing valuesData Preprocessing PipelineTo guarantee clean data feeding into the boosting algorithms, the following preprocessing steps are executed:Imputation:Missing Age values are filled using the dataset's median.The single missing Fare value is filled using the median.Missing Embarked locations are filled using the mode ('S').Feature Elimination:Dropped the Cabin column due to an excess of null parameters.Dropped non-numeric metadata columns post-split: PassengerId, Name, and Ticket.Categorical Encoding:Sex is processed via Label Encoding (converting strings to sequential integers).Embarked is converted using One-Hot Encoding (pd.get_dummies), splitting into Embarked_C, Embarked_Q, and Embarked_S.Data Splitting:The data is split back into train and test sets based on the presence of the Survived label.The training subset is split into an 80/20 train-test validation partition (random_state=42).Complete Implementation CodeBelow is the complete, self-contained Python script containing the entire data engineering and modeling workflow:Pythonimport pandas as pd
+---
+
+**## Dataset Summary**
+The project processes both the training (Titanic_train.csv) and testing (Titanic_test.csv) sets combined for structured preprocessing:
+Total Combined Rows: 1,309
+Total Initial Features: 12
+Target Variable: Survived (Binary: 0 = No, 1 = Yes)
+
+Missing Value Inspection
+Prior to preprocessing, missing values were identified across the combined dataset:
+Age: 263 missing values
+Fare: 1 missing value
+Cabin: 1,014 missing values (Dropped due to sparsity)
+Embarked: 2 missing values
+
+Data Preprocessing Pipeline
+To guarantee clean data feeding into the boosting algorithms, the following preprocessing steps are executed:
+Imputation:
+Missing Age values are filled using the dataset's median.
+The single missing Fare value is filled using the median.
+Missing Embarked locations are filled using the mode ('S').
+Feature Elimination:
+Dropped the Cabin column due to an excess of null parameters.
+Dropped non-numeric metadata columns post-split: PassengerId, Name, and Ticket.
+Categorical Encoding:
+Sex is processed via Label Encoding (converting strings to sequential integers).
+Embarked is converted using One-Hot Encoding (pd.get_dummies), splitting into Embarked_C, Embarked_Q, and Embarked_S.
+Data Splitting:
+The data is split back into train and test sets based on the presence of the Survived label.
+The training subset is split into an 80/20 train-test validation partition (random_state=42).
+
+## Complete Implementation Code
+Below is the complete, self-contained Python script containing the entire data engineering and modeling workflow:Pythonimport pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
